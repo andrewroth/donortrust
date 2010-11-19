@@ -163,6 +163,13 @@ ActionController::Routing::Routes.draw do |map|
   map.inactive_records 'bus_admin/causes/inactive_records', :controller => 'bus_admin/causes', :action => 'inactive_records'
   map.recover_record 'bus_admin/causes/recover_record', :controller => 'bus_admin/causes', :action => 'recover_record'
 
+  map.namespace :bus_admin do |bs|
+    bs.resources :orders, :active_scaffold => true do |order|
+      order.resources :investments, :active_scaffold => true
+    end
+    bs.resources :investments, :active_scaffold => true
+  end
+  
   # bus_admin resources
   map.resources :reports, :path_prefix => "/bus_admin", :controller => "bus_admin/reports"
   map.process_report 'bus_admin/reports/process_report', :controller => 'bus_admin/reports', :action => 'process_report'
